@@ -1,4 +1,4 @@
-FROM espressif/idf:release-v4.4
+FROM espressif/idf:v4.4
 
 RUN apt-get update
 ARG DEBIAN_FRONTEND=noninteractive
