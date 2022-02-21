@@ -33,4 +33,6 @@ RUN mkdir $ESP32_ARDUINO/tools/esptool
 RUN cp $ESP32_ARDUINO/tools/esptool.py $ESP32_ARDUINO/tools/esptool
 
 ENV PATH="/opt/arduino:${PATH}"
+# The following is required for idf.py menuconfig
+ENV LANG="C"
 WORKDIR /opt/arduino
