@@ -22,11 +22,10 @@ RUN wget https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit
 # Install the standard ESP32 Arduino Core
 RUN ./arduino-cli config init \
   --additional-urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
-RUN ./arduino-cli update
-RUN ./arduino-cli core install esp32:esp32@2.0.2
+RUN ./arduino-cli update && ./arduino-cli core install esp32:esp32@2.0.3
 
 # Override the precompiled SDK files with the freshly-built core
-ENV ESP32_ARDUINO=/root/.arduino15/packages/esp32/hardware/esp32/2.0.2
+ENV ESP32_ARDUINO=/root/.arduino15/packages/esp32/hardware/esp32/2.0.3
 WORKDIR /opt/esp/esp32-arduino-lib-builder
 RUN ./tools/copy-to-arduino.sh
 RUN mkdir $ESP32_ARDUINO/tools/esptool
