@@ -1,8 +1,8 @@
-FROM espressif/idf:v4.4
+FROM espressif/idf:v4.4.2
 
 RUN apt-get update
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get install -y git wget curl libssl-dev libncurses-dev flex bison gperf python3 python3-pip python3-setuptools python3-serial python3-click python3-cryptography python3-future python3-pyparsing python3-pyelftools cmake ninja-build ccache
+RUN apt-get install -y git wget curl libssl-dev libncurses-dev flex bison gperf python3 python3-pip python3-setuptools python3-serial python3-click python3-cryptography python3-future python3-pyparsing python3-pyelftools cmake ninja-build ccache jq
 RUN pip install --upgrade pip
 
 # Install the ESP32 Arduino Lib Builder 
@@ -22,10 +22,10 @@ RUN wget https://downloads.arduino.cc/arduino-cli/arduino-cli_latest_Linux_64bit
 # Install the standard ESP32 Arduino Core
 RUN ./arduino-cli config init \
   --additional-urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
-RUN ./arduino-cli update && ./arduino-cli core install esp32:esp32@2.0.3
+RUN ./arduino-cli update && ./arduino-cli core install esp32:esp32@2.0.4
 
 # Override the precompiled SDK files with the freshly-built core
-ENV ESP32_ARDUINO=/root/.arduino15/packages/esp32/hardware/esp32/2.0.3
+ENV ESP32_ARDUINO=/root/.arduino15/packages/esp32/hardware/esp32/2.0.4
 WORKDIR /opt/esp/esp32-arduino-lib-builder
 RUN ./tools/copy-to-arduino.sh
 RUN mkdir $ESP32_ARDUINO/tools/esptool
