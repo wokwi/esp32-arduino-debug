@@ -1,6 +1,6 @@
-FROM espressif/idf:v4.4.3
+FROM espressif/idf:v4.4.5
 
-ENV ARDUINO_CORE_VERSION=2.0.6
+ENV ARDUINO_CORE_VERSION=2.0.11
 
 RUN apt-get update
 ARG DEBIAN_FRONTEND=noninteractive
