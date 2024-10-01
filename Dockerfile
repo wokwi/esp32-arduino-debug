@@ -1,17 +1,9 @@
-FROM espressif/idf:v4.4.5
+FROM espressif/esp32-arduino-lib-builder
 
-ENV ARDUINO_CORE_VERSION=2.0.11
+ENV ARDUINO_CORE_VERSION=3.0.5
 
-RUN apt-get update
-ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get install -y git wget curl libssl-dev libncurses-dev flex bison gperf python3 python3-pip python3-setuptools python3-serial python3-click python3-cryptography python3-future python3-pyparsing python3-pyelftools cmake ninja-build ccache jq
-RUN pip install --upgrade pip
-
-# Install the ESP32 Arduino Lib Builder 
-WORKDIR /opt/esp
-RUN git clone https://github.com/espressif/esp32-arduino-lib-builder
-WORKDIR /opt/esp/esp32-arduino-lib-builder
-ENV IDF_PATH=/opt/esp/idf
+WORKDIR /opt/esp/lib-builder
+RUN ./entrypoint.sh 
 RUN ./build.sh
 
 # Install the Arduino CLI
@@ -29,7 +21,7 @@ RUN mkdir -p $ESP32_ARDUINO && \
   python3 get.py
 
 # Override the precompiled SDK files with the freshly-built core
-WORKDIR /opt/esp/esp32-arduino-lib-builder
+WORKDIR /opt/esp/lib-builder
 RUN ./tools/copy-to-arduino.sh
 
 ENV PATH="/opt/arduino:${PATH}"
